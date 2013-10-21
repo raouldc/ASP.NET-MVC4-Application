@@ -15,7 +15,7 @@ namespace A2MVC4.Controllers
         {
             ViewBag.m = m;
             ViewBag.n = n;
-            calculate(m, n); //initialize with 3 and 4
+            calculate(m, n);
             return View();
         }
 
@@ -34,7 +34,6 @@ namespace A2MVC4.Controllers
                 ViewBag.Divide = "M / N = " + ((int)(M / N)).ToString();
                 ViewBag.Mod = "M % N = " + (M % N).ToString();
             }
-
         }
     }
 }
