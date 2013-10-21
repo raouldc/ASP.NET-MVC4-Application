@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "WebGrid";
+}
+
+<h2>WebGridOdata</h2>
+@model IEnumerable<A2MVC4.Controllers.OdataController.JointProductModel>
+
+@Html.Hidden("rowsPerPage")
+
+<div>
+ 
+@{
+ 
+  var grid = new WebGrid();
+  grid.Bind(Model, rowCount: @ViewBag.rows, columnNames: new[] {"ProductID", "ProductName", "CategoryName", "CompanyName"}, autoSortAndPage: false); 
+}
+ 
+@grid.GetHtml(
+    columns: new[] {
+    grid.Column("ProductID"),
+    grid.Column("ProductName"),
+    grid.Column("CategoryName"),
+    grid.Column("CompanyName"),
+    grid.Column("Country")
+    })
+    
+
+ 
+</div>

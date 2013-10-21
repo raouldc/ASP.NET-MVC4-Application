@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -165,6 +166,7 @@
     <Compile Include="Controllers\ArithController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ObjController.cs" />
+    <Compile Include="Controllers\OdataController.cs" />
     <Compile Include="Controllers\SqlController.cs" />
     <Compile Include="Controllers\XmlController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -293,6 +295,7 @@
     <Content Include="Views\Obj\HtmlObj.cshtml" />
     <Content Include="Views\Obj\WebGrid.cshtml" />
     <Content Include="Views\Xml\WebGrid.cshtml" />
+    <Content Include="Views\Odata\WebGrid.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
