@@ -166,6 +166,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ObjController.cs" />
     <Compile Include="Controllers\SqlController.cs" />
+    <Compile Include="Controllers\XmlController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -291,6 +292,7 @@
     <Content Include="Views\Arith\Index.cshtml" />
     <Content Include="Views\Obj\HtmlObj.cshtml" />
     <Content Include="Views\Obj\WebGrid.cshtml" />
+    <Content Include="Views\Xml\WebGrid.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

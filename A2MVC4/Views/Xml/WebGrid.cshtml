@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "WebGrid";
+}
+
+<h2>WebGridXml</h2>
+@model A2MVC4.Controllers.XmlController.PagedJointProductModel
+
+@Html.Hidden("rowsPerPage")
+
+<div>
+ 
+@{
+ 
+  var grid = new WebGrid(columnNames: new[] {"ProductID", "ProductName", "CategoryName", "CompanyName"}, rowsPerPage: @ViewBag.rowsPerPage);
+  grid.Bind(Model.PagedProductModel, rowCount: Model.TotalRows, autoSortAndPage: false);
+}
+ 
+@grid.GetHtml(
+    columns: new[] {
+    grid.Column("ProductID"),
+    grid.Column("ProductName"),
+    grid.Column("CategoryName"),
+    grid.Column("CompanyName"),
+    grid.Column("Country")
+    })
+    
+
+ 
+</div>
