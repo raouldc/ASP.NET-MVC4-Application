@@ -4,20 +4,20 @@
 
 <h2>Arith</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("eval", "Arith", FormMethod.Get))
 {
     <p>
         M =
-        <input id="M" type="text" value="3" />
+        @Html.TextBox("m")
     </p>
     <p>
         N =
-        <input id="N" type="text" value="4" />
+        @Html.TextBox("n")
     </p>
     @Html.Label("add",(string)@ViewBag.Add)
     @Html.Label("subtract",(string)@ViewBag.Subtract)
     @Html.Label("multiply",(string)@ViewBag.Multiply)
     @Html.Label("divide",(string)@ViewBag.Divide) @Html.Label("mod",(string)@ViewBag.Mod)
-    <input type="submit" value="index">
+    <input type="submit" value="eval">
       
 }

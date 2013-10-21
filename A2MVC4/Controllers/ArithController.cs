@@ -11,16 +11,9 @@ namespace A2MVC4.Controllers
         //
         // GET: /Arith/
 
-        public ActionResult Index()
+        public ActionResult Index(double m = 3, double n = 4)
         {
-            calculate(3, 4); //initialize with 3 and 4
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult eval(double M, double N)
-        {
-            calculate(M, N);
+            calculate(m, n); //initialize with 3 and 4
             return View();
         }
 
@@ -29,8 +22,26 @@ namespace A2MVC4.Controllers
             ViewBag.Add = "M + N = " + (M + N).ToString();
             ViewBag.Subtract = "M - N = " + (M - N).ToString();
             ViewBag.Multiply = "M * N = " + (M * N).ToString();
-            ViewBag.Divide = "M / N = " + ((int)(M / N)).ToString();
-            ViewBag.Mod = "M % N = " + (M % N).ToString();
+            if (N == 0)
+            {
+                ViewBag.Divide = "M / N = ?";
+                ViewBag.Mod = "M % N = ?";
+            }
+            else
+            {
+                ViewBag.Divide = "M / N = " + ((int)(M / N)).ToString();
+                ViewBag.Mod = "M % N = " + (M % N).ToString();
+            }
+
+        }
+
+
+        public ActionResult Eval(double m = 3, double n = 4)
+        {
+            ViewBag.m = m;
+            ViewBag.n = n;
+            calculate(m, n); //initialize with 3 and 4
+            return View();
         }
     }
 }
