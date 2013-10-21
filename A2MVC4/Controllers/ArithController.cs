@@ -13,6 +13,8 @@ namespace A2MVC4.Controllers
 
         public ActionResult Index(double m = 3, double n = 4)
         {
+            ViewBag.m = m;
+            ViewBag.n = n;
             calculate(m, n); //initialize with 3 and 4
             return View();
         }
@@ -33,15 +35,6 @@ namespace A2MVC4.Controllers
                 ViewBag.Mod = "M % N = " + (M % N).ToString();
             }
 
-        }
-
-
-        public ActionResult Eval(double m = 3, double n = 4)
-        {
-            ViewBag.m = m;
-            ViewBag.n = n;
-            calculate(m, n); //initialize with 3 and 4
-            return View();
         }
     }
 }
