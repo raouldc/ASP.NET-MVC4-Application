@@ -285,6 +285,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Arith\Index.cshtml" />
     <Content Include="Views\Obj\HtmlObj.cshtml" />
+    <Content Include="Views\Obj\WebGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

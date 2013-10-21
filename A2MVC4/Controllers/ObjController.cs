@@ -10,13 +10,18 @@ namespace A2MVC4.Controllers
     {
         //
         // GET: /Obj/
-
         public ActionResult Index()
         {
             return View();
         }
 
         public ActionResult HtmlObj()
+        {
+            JointProductModels();
+            return View(_jointProductModelList);
+        }
+
+        private void JointProductModels()
         {
             var Products = ProductsList;
             var Categories = CategoriesList;
@@ -28,9 +33,9 @@ namespace A2MVC4.Controllers
             var r =
                 from p in Products
                 join c in Categories
-                on p.CategoryID equals c.CategoryID
+                    on p.CategoryID equals c.CategoryID
                 join s in Suppliers
-                on p.SupplierID equals s.SupplierID
+                    on p.SupplierID equals s.SupplierID
                 orderby c.CategoryName, p.ProductID
                 select new JointProductModel
                 {
@@ -41,9 +46,155 @@ namespace A2MVC4.Controllers
                     Country = s.Country
                 };
             //r.Skip(3).Take(3).Dump("r");
-            List<JointProductModel> listP = (from p in r orderby p.ProductID select p).ToList();
-            return View(listP);
+            _jointProductModelList = (from p in r orderby p.ProductID select p).ToList();
         }
+
+        public ActionResult WebGrid(int page = 1, int rowsPerPage = 10, string sort = "ProductId", string sortDir = "ASC")
+        {
+            JointProductModels();
+            this._rowsPerPage = Convert.ToInt32(rowsPerPage);
+            @ViewBag.rowsPerPage = rowsPerPage;
+
+            var currentPage = GetListPage(page, rowsPerPage, sort, sortDir);
+
+            var data = new PagedJointProductModel()
+            {
+                TotalRows = _jointProductModelList.Count(),
+                PageSize = rowsPerPage,
+                PagedProductModel = (IEnumerable<JointProductModel>)currentPage
+            };
+            return View(data);
+        }
+
+        private object GetListPage(int page, int i, string sort, string sortDir)
+        {
+            if (page < 1)
+                page = 1;
+            if (sort == "ProductID")
+
+                switch (sortDir)
+                {
+                    case "ASC":
+                        return _jointProductModelList.OrderBy(x => x.ProductID)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+
+                    case "DESC":
+                        return _jointProductModelList.OrderByDescending(x => x.ProductID)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+                    default: return _jointProductModelList.OrderBy(x => x.ProductID)
+                         .Skip((page - 1) * _rowsPerPage)
+                         .Take(_rowsPerPage)
+                         .ToList();
+
+                }
+
+            else if (sort == "ProductName")
+                switch (sortDir)
+                {
+                    case "ASC":
+                        return _jointProductModelList.OrderBy(x => x.ProductName)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+
+                    case "DESC":
+                        return _jointProductModelList.OrderByDescending(x => x.ProductName)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+                    default: return _jointProductModelList.OrderBy(x => x.ProductID)
+                     .Skip((page - 1) * _rowsPerPage)
+                     .Take(_rowsPerPage)
+                     .ToList();
+                }
+            else if (sort == "CategoryName")
+                switch (sortDir)
+                {
+                    case "ASC":
+                        return _jointProductModelList.OrderBy(x => x.CategoryName).ThenBy(x => x.ProductID)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+                    case "DESC":
+                        return _jointProductModelList.OrderByDescending(x => x.CategoryName).ThenBy(x => x.ProductID)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+                    default: return _jointProductModelList.OrderBy(x => x.ProductID).ThenBy(x => x.ProductID)
+                     .Skip((page - 1) * _rowsPerPage)
+                     .Take(_rowsPerPage)
+                     .ToList();
+                }
+            else if (sort == "CompanyName")
+                switch (sortDir)
+                {
+                    case "ASC":
+                        return _jointProductModelList.OrderBy(x => x.CompanyName)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+
+                    case "DESC":
+                        return _jointProductModelList.OrderByDescending(x => x.CompanyName)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+                    default: return _jointProductModelList.OrderBy(x => x.ProductID)
+                     .Skip((page - 1) * _rowsPerPage)
+                     .Take(_rowsPerPage)
+                     .ToList();
+                }
+            else if (sort == "Country")
+                switch (sortDir)
+                {
+                    case "ASC":
+                        return _jointProductModelList.OrderBy(x => x.Country)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+
+                    case "DESC":
+                        return _jointProductModelList.OrderByDescending(x => x.Country)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+                    default: return _jointProductModelList.OrderBy(x => x.Country)
+                     .Skip((page - 1) * _rowsPerPage)
+                     .Take(_rowsPerPage)
+                     .ToList();
+                }
+            else
+                switch (sortDir)
+                {
+                    case "ASC":
+                        return _jointProductModelList.OrderBy(x => x.ProductID)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+
+                    case "DESC":
+                        return _jointProductModelList.OrderByDescending(x => x.ProductID)
+                        .Skip((page - 1) * _rowsPerPage)
+                        .Take(_rowsPerPage)
+                        .ToList();
+                    default: return _jointProductModelList.OrderBy(x => x.ProductID)
+                     .Skip((page - 1) * _rowsPerPage)
+                     .Take(_rowsPerPage)
+                     .ToList();
+                }
+        }
+
+        public class PagedJointProductModel
+        {
+            public int TotalRows { get; set; }
+            public IEnumerable<JointProductModel> PagedProductModel { get; set; }
+            public int PageSize { get; set; }
+        }
+
 
         public class JointProductModel
         {
@@ -216,8 +367,7 @@ namespace A2MVC4.Controllers
   new SupplierModel (SupplierID: 28, CompanyName: "Gai pâturage", Country: "France"), 
   new SupplierModel (SupplierID: 29, CompanyName: "Forêts d'érables", Country: "Canada"), 
 };
-
-
-
+        private int _rowsPerPage = 10;
+        private List<JointProductModel> _jointProductModelList = new List<JointProductModel>();
     }
 }
